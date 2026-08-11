@@ -1,0 +1,22 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 003-add-fk-employees-department
+      author: eremin
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: "0"
+            sql: |
+              SELECT count(*)
+              FROM information_schema.table_constraints
+              WHERE constraint_name = 'fk_employees_department'
+                AND table_name = 'employees'
+                AND constraint_type = 'FOREIGN KEY'
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: employees
+            baseColumnNames: department_id
+            referencedTableName: departments
+            referencedColumnNames: id
+            constraintName: fk_employees_department

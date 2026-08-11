@@ -1,0 +1,36 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 005-insert-employees
+      author: eremin
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck: { expectedResult: "2", sql: "select count(*) from departments where name in ('IT', 'HR')" }
+        - sqlCheck: { expectedResult: "0", sql: "select count(*) from employees" }
+      changes:
+        - insert:
+            tableName: employees
+            columns:
+              - column: { name: first_name, value: Иван }
+              - column: { name: last_name, value: Петров }
+              - column: { name: position, value: "Java Developer" }
+              - column: { name: salary, valueNumeric: 180000.00 }
+              - column: { name: department_id, valueComputed: "(select id from departments where name = 'IT')" }
+
+        - insert:
+            tableName: employees
+            columns:
+              - column: { name: first_name, value: Мария }
+              - column: { name: last_name, value: Сидорова }
+              - column: { name: position, value: "DevOps Engineer" }
+              - column: { name: salary, valueNumeric: 200000.00 }
+              - column: { name: department_id, valueComputed: "(select id from departments where name = 'IT')" }
+
+        - insert:
+            tableName: employees
+            columns:
+              - column: { name: first_name, value: Алексей }
+              - column: { name: last_name, value: Иванов }
+              - column: { name: position, value: "HR Manager" }
+              - column: { name: salary, valueNumeric: 120000.00 }
+              - column: { name: department_id, valueComputed: "(select id from departments where name = 'HR')" }
