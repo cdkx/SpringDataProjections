@@ -1,0 +1,21 @@
+databaseChangeLog:
+
+  - include:
+      file: changes/schema/001-create-departments.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/schema/002-create-employees.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/schema/003-add-fk-employees-department.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/data/004-insert-departments.yaml
+      relativeToChangelogFile: true
+
+  - include:
+      file: changes/data/005-insert-employees.yaml
+      relativeToChangelogFile: true

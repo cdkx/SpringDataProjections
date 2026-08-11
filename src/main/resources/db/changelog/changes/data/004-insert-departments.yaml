@@ -1,0 +1,24 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: 004-insert-departments
+      author: eremin
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: "0"
+            sql: select count(*) from departments
+      changes:
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: name
+                  value: IT
+
+        - insert:
+            tableName: departments
+            columns:
+              - column:
+                  name: name
+                  value: HR
